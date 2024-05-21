@@ -12,6 +12,10 @@ public class LanceOfDestiny extends JFrame implements Runnable {
     private Thread gameThread;
     private GamePanel gamePanel;
 
+    private BuildingModePanel buildingModePanel;
+    private RunningModePanel runningModePanel;
+    private JPanel currentPanel;
+
     public LanceOfDestiny() {
         setTitle(TITLE);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -23,6 +27,12 @@ public class LanceOfDestiny extends JFrame implements Runnable {
         add(gamePanel, BorderLayout.CENTER);
 
         setVisible(true);
+
+        buildingModePanel = new BuildingModePanel();
+        runningModePanel = new RunningModePanel();
+        currentPanel = buildingModePanel;
+
+        add(currentPanel, BorderLayout.CENTER);
     }
 
     public void start() {
@@ -77,5 +87,21 @@ public class LanceOfDestiny extends JFrame implements Runnable {
             super.paintComponent(g);
             // Render game objects here
         }
+    }
+
+    private void switchToRunningMode() {
+        remove(currentPanel);
+        currentPanel = runningModePanel;
+        add(currentPanel, BorderLayout.CENTER);
+        revalidate();
+        repaint();
+    }
+
+    private void switchToBuildingMode() {
+        remove(currentPanel);
+        currentPanel = buildingModePanel;
+        add(currentPanel, BorderLayout.CENTER);
+        revalidate();
+        repaint();
     }
 }
