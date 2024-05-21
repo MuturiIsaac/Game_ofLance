@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.List;
 
 public class LanceOfDestiny extends JFrame implements Runnable, KeyListener {
     private static final int WIDTH = 800;
@@ -18,6 +19,7 @@ public class LanceOfDestiny extends JFrame implements Runnable, KeyListener {
     private boolean isInBuildingMode;
     private String username;
     private DatabaseManager databaseManager;
+    private GameState currentGameState;
 
     public LanceOfDestiny() {
         initializeComponents();
@@ -69,15 +71,17 @@ public class LanceOfDestiny extends JFrame implements Runnable, KeyListener {
     private void loadGameState() {
         String gameData = databaseManager.loadGameState(username);
         if (gameData != null) {
-            GameState loadedGameState = GameState.fromJSON(gameData);
+            currentGameState = GameState.fromJSON(gameData);
             // Load the game state from the loaded object
         } else {
             // Start a new game
+            currentGameState = new GameState();
         }
     }
 
     public void saveGameState() {
-        GameState currentGameState = new GameState(...); // Create a GameState object with the current game state
+        GameState currentGameState;
+        currentGameState = new GameState(;...); // Create a GameState object with the current game state
         String gameDataJson = currentGameState.toJSON();
         databaseManager.saveGameState(username, gameDataJson);
     }
