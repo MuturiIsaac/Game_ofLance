@@ -7,12 +7,16 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -71,7 +75,7 @@ public class Main extends Application {
 
         // Create bottom elements
         VBox bottomBox = new VBox(10);
-        bottomBox.setAlignment(Pos.CENTER);
+        bottomBox.setAlignment(Pos.BOTTOM_CENTER);
         bottomBox.getChildren().addAll(
                 createImageCanvas(iconFirmImage, objectSize),
                 createImageCanvas(iconGreenGemImage, objectSize)
@@ -88,18 +92,34 @@ public class Main extends Application {
         topLeftBox.getChildren().addAll(saveButton, loadButton, pauseButton, quitButton);
 
         // Create top right score and lives
-        HBox topRightBox = new HBox(10);
+        // Create top right score and lives
+        VBox topRightBox = new VBox(10);
         topRightBox.setAlignment(Pos.TOP_RIGHT);
         topRightBox.setPadding(new Insets(10));
-        Canvas scoreCanvas = new Canvas(100, 20);
-        GraphicsContext scoreGc = scoreCanvas.getGraphicsContext2D();
-        scoreGc.fillText("Score: 102", 0, 15);
 
+        // Create Score Label
+        Label scoreLabel = new Label("Score: 102");
+        scoreLabel.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+        scoreLabel.setTextFill(Color.WHITE); // Set text color to white
+        topRightBox.getChildren().add(scoreLabel);
+
+        // Create Lives Label
+        // Create Lives Label
         HBox livesBox = new HBox(5);
+        Label livesLabel = new Label("Lives: ");
+        livesLabel.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+        livesLabel.setTextFill(Color.WHITE); // Set text color to white
         for (int i = 0; i < 3; i++) {
             livesBox.getChildren().add(createImageCanvas(heartImage, 20));
         }
-        topRightBox.getChildren().addAll(scoreCanvas, livesBox);
+
+// Create a new HBox to hold the livesLabel and livesBox
+        HBox livesHBox = new HBox();
+        livesHBox.setAlignment(Pos.CENTER_RIGHT); // Align to the right
+        livesHBox.getChildren().addAll(livesLabel, livesBox);
+
+// Add the livesHBox to the topRightBox
+        topRightBox.getChildren().add(livesHBox);
 
         // Combine gridPane and bottomBox in a VBox
         VBox centerBox = new VBox(20);
