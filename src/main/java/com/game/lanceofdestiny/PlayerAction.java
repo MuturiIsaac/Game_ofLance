@@ -3,15 +3,12 @@ package com.game.lanceofdestiny;
 import java.io.Serializable;
 
 public class PlayerAction implements Serializable {
-    private static final long serialVersionUID = 1L;
-
     public enum ActionType {
         MOVE, CAST_SPELL
     }
 
     private ActionType actionType;
-    private int x;
-    private int y;
+    private int x, y;
     private Spell.SpellType spellType;
 
     public PlayerAction(ActionType actionType, int x, int y) {
