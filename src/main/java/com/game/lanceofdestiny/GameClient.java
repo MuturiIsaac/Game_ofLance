@@ -1,25 +1,29 @@
 package com.game.lanceofdestiny;
 
+import javax.swing.JFrame;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.List;
 
 public class GameClient {
     private static final String HOST = "localhost";
-    private static final int PORT = 23456;
+    private static final int PORT = 12345;
     private ObjectOutputStream out;
     private ObjectInputStream in;
-    private Socket socket;
+    private GamePanel gamePanel;
 
     public GameClient() {
-        try {
-            socket = new Socket(HOST, PORT);
+        try (Socket socket = new Socket(HOST, PORT)) {
             out = new ObjectOutputStream(socket.getOutputStream());
             in = new ObjectInputStream(socket.getInputStream());
 
-            System.out.println("Connected to server");
+            JFrame frame = new JFrame("Lance of Destiny");
+            gamePanel = new GamePanel(this);
+            frame.add(gamePanel);
+            frame.pack();
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setVisible(true);
 
             new Thread(new ServerListener()).start();
         } catch (IOException e) {
@@ -32,28 +36,14 @@ public class GameClient {
         public void run() {
             try {
                 while (true) {
-                    Object input = in.readObject();
-                    if (input instanceof List) {
-                        System.out.println("Received update from server");
-                        // Update game state with the list of players
-                    }
+                    PlayerAction action = (PlayerAction) in.readObject();
+                    // Update game state based on the received action
                 }
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
-            } finally {
-                try {
-                    if (socket != null) {
-                        socket.close();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
             }
         }
     }
-
-    // Rest of the code...
-
 
     public void sendAction(PlayerAction action) {
         try {
