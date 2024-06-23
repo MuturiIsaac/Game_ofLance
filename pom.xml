@@ -48,7 +48,7 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.0.0</version>
                 <configuration>
-                    <mainClass>com.game.lanceofdestiny.Game</mainClass>
+                    <mainClass>com.game.lanceofdestiny.LanceOfDestiny</mainClass>
                     <arguments>
                         <argument>--module-path</argument>
                         <argument>${java.home}/lib</argument>
