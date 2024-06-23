@@ -21,14 +21,14 @@ class IntroPanel extends JPanel {
 
     private void loadResources() {
         try {
-            background = ImageIO.read(getClass().getResource("/background.png"));
-            sprites.put("staff", ImageIO.read(getClass().getResource("/staff.png")));
-            sprites.put("fireball", ImageIO.read(getClass().getResource("/fireball.png")));
-            sprites.put("heart", ImageIO.read(getClass().getResource("/heart.png")));
-            sprites.put("barrier_white", ImageIO.read(getClass().getResource("/barrier_white.png")));
-            sprites.put("barrier_red", ImageIO.read(getClass().getResource("/barrier_red.png")));
-            sprites.put("barrier_green", ImageIO.read(getClass().getResource("/Blue")));
-            sprites.put("barrier_blue", ImageIO.read(getClass().getResource("/images/barrier_blue.png")));
+            background = ImageIO.read(getClass().getResource("/200Background.png"));
+            sprites.put("staff", ImageIO.read(getClass().getResource("/Player.png")));
+            sprites.put("fireball", ImageIO.read(getClass().getResource("/Fireball.png")));
+            sprites.put("heart", ImageIO.read(getClass().getResource("/Heart.png")));
+            sprites.put("barrier_white", ImageIO.read(getClass().getResource("/Firm.png")));
+            sprites.put("barrier_red", ImageIO.read(getClass().getResource("/RedGem.png")));
+            sprites.put("barrier_green", ImageIO.read(getClass().getResource("/GreenGem.png")));
+            sprites.put("barrier_blue", ImageIO.read(getClass().getResource("/BlueGem.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }
